@@ -1,6 +1,9 @@
 import { useParams, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { useState, useEffect } from "react";
+import { Route, Routes, Link, useMatch } from "react-router-dom";
+import Chart from "./Chart";
+import Price from "./Price";
 
 const Container = styled.div``;
 
@@ -9,6 +12,16 @@ const Header = styled.header``;
 const Title = styled.h1``;
 
 const Loader = styled.span``;
+
+const Overview = styled.div``;
+
+const OverviewItem = styled.div``;
+
+const Tabs = styled.div``;
+
+const Tab = styled.span<{ isActive: boolean }>`
+  color: ${(props) => (props.isActive ? props.theme.accentColor : props.theme.textColor)};
+`;
 
 interface LocationState {
   state: {
@@ -77,10 +90,12 @@ function Coin() {
   const { state } = useLocation() as LocationState;
   const [info, setInfo] = useState<IInfoData>();
   const [priceInfo, setPriceInfo] = useState<IPriceData>();
+  const chartMatch = useMatch("/:coinId/chart");
+  const priceMatch = useMatch("/:coinId/price");
   useEffect(() => {
     (async () => {
-      const infoData = await (await fetch(`https://api.coinpaprika.com/v1/coins/${coinId}`)).json();
-      const priceData = await (await fetch(`https://api.coinpaprika.com/v1/tickers/${coinId}`)).json();
+      const infoData = await (await fetch(`https://api.coinpaprika.com/v1/coins/${coinId.coinId}`)).json();
+      const priceData = await (await fetch(`https://api.coinpaprika.com/v1/tickers/${coinId.coinId}`)).json();
       setInfo(infoData);
       setPriceInfo(priceData);
       setLoading(false);
@@ -89,9 +104,46 @@ function Coin() {
   return (
     <Container>
       <Header>
-        <Title>{state?.name || "로딩중"}</Title>
+        <Title>{state?.name ? state.name : loading ? "로딩중" : info?.name}</Title>
       </Header>
-      {loading ? <Loader>로딩중</Loader> : null}
+      {loading ? (
+        <Loader>로딩중</Loader>
+      ) : (
+        <>
+          <Overview>
+            <OverviewItem>
+              <span>랭킹 {info?.rank}</span>
+            </OverviewItem>
+            <OverviewItem>
+              <span>심볼 {info?.symbol}</span>
+            </OverviewItem>
+            <OverviewItem>
+              <span>오픈소스 {info?.open_source ? "있음" : "없음"}</span>
+            </OverviewItem>
+            <OverviewItem>
+              <span>설명 {info?.description}</span>
+            </OverviewItem>
+            <OverviewItem>
+              <span>총공급가 {priceInfo?.total_supply}</span>
+            </OverviewItem>
+            <OverviewItem>
+              <span>최대공급가 {priceInfo?.max_supply}</span>
+            </OverviewItem>
+          </Overview>
+          <Tabs>
+            <Tab isActive={chartMatch !== null}>
+              <Link to="chart">차트</Link>
+            </Tab>
+            <Tab isActive={priceMatch !== null}>
+              <Link to="price">시세</Link>
+            </Tab>
+          </Tabs>
+          <Routes>
+            <Route path="chart" element={<Chart />}></Route>
+            <Route path="price" element={<Price />}></Route>
+          </Routes>
+        </>
+      )}
     </Container>
   );
 }
