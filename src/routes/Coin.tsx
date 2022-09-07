@@ -6,6 +6,7 @@ import Chart from "./Chart";
 import Price from "./Price";
 import { useQuery } from "@tanstack/react-query";
 import { fetchCoinInfo, fetchCoinTickers } from "../api";
+import { Helmet } from "react-helmet";
 
 const Container = styled.div``;
 
@@ -103,11 +104,14 @@ function Coin() {
   //     setLoading(false);
   //   })();
   // }, [coinId]);
-  const { isLoading: infoLoading, data: infoData } = useQuery<IInfoData>(["info", coinId], () => fetchCoinInfo(coinId!));
-  const { isLoading: tickersLoading, data: tickersData } = useQuery<IPriceData>(["tickers", coinId], () => fetchCoinInfo(coinId!));
+  const { isLoading: infoLoading, data: infoData } = useQuery<IInfoData>(["info", coinId], () => fetchCoinInfo(coinId!), { refetchInterval: 5000 });
+  const { isLoading: tickersLoading, data: tickersData } = useQuery<IPriceData>(["tickers", coinId], () => fetchCoinTickers(coinId!));
   const loading = infoLoading || tickersLoading;
   return (
     <Container>
+      <Helmet>
+        <title>{state?.name ? state.name : loading ? "로딩중" : infoData?.name}</title>
+      </Helmet>
       <Header>
         <Title>{state?.name ? state.name : loading ? "로딩중" : infoData?.name}</Title>
       </Header>
@@ -123,7 +127,7 @@ function Coin() {
               <span>심볼 {infoData?.symbol}</span>
             </OverviewItem>
             <OverviewItem>
-              <span>오픈소스 {infoData?.open_source ? "있음" : "없음"}</span>
+              <span>시세 {tickersData?.quotes.USD.price.toFixed(3)}</span>
             </OverviewItem>
             <OverviewItem>
               <span>설명 {infoData?.description}</span>
@@ -144,7 +148,7 @@ function Coin() {
             </Tab>
           </Tabs>
           <Routes>
-            <Route path="chart" element={<Chart />}></Route>
+            <Route path="chart" element={<Chart coinId={coinId!} />}></Route>
             <Route path="price" element={<Price />}></Route>
           </Routes>
         </>
