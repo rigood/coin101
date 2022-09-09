@@ -1,10 +1,11 @@
-import { useQuery } from "@tanstack/react-query";
-import { fetchCoinHistory } from "../api";
 import ApexCharts from "react-apexcharts";
+import { useQuery } from "@tanstack/react-query";
 import { useRecoilValue } from "recoil";
 import { isDarkAtom } from "../atoms";
+import { fetchCoinHistory } from "../api";
+import { Loader } from "./Coins";
 
-interface ChartProops {
+interface ChartProps {
   coinId: string;
 }
 
@@ -19,14 +20,15 @@ interface IHistorical {
   volume: number;
 }
 
-function Chart({ coinId }: ChartProops) {
+function Chart({ coinId }: ChartProps) {
   const isDark = useRecoilValue(isDarkAtom);
   const { isLoading, data } = useQuery<IHistorical[]>(["ohlcv", coinId], () => fetchCoinHistory(coinId), { refetchInterval: 10000 });
-  console.log(data);
   return (
     <div>
       {isLoading ? (
-        "로딩중"
+        <Loader>
+          <img src="/clock.gif" alt="Loading clock" />
+        </Loader>
       ) : (
         <ApexCharts
           type="candlestick"
@@ -34,23 +36,23 @@ function Chart({ coinId }: ChartProops) {
             {
               data:
                 data?.map((price) => ({
-                  x: new Date(price.time_open * 1000),
-                  y: [price.open, price.low, price.high, price.close],
+                  x: new Date(price.time_close * 1000),
+                  y: [price.open, price.high, price.low, price.close],
                 })) ?? [],
             },
           ]}
           options={{
-            theme: {
-              mode: "dark",
-            },
             chart: {
               type: "candlestick",
-              height: 350,
               width: 500,
+              height: 350,
               toolbar: {
                 show: false,
               },
               background: "transparent",
+            },
+            theme: {
+              mode: isDark ? "dark" : "light",
             },
             stroke: {
               curve: "smooth",
@@ -61,8 +63,9 @@ function Chart({ coinId }: ChartProops) {
             },
             xaxis: {
               type: "datetime",
-              categories: data?.map((price) => new Date(price.time_close * 1000).toISOString()),
+              categories: data?.map((price) => new Date(price.time_close * 1000)),
               labels: {
+                format: "M/d",
                 style: {
                   colors: "#9c88ff",
                 },
@@ -71,59 +74,12 @@ function Chart({ coinId }: ChartProops) {
             plotOptions: {
               candlestick: {
                 colors: {
-                  upward: "#3C90EB",
-                  downward: "#DF7D46",
+                  upward: "#f23d3d",
+                  downward: "#13bf36",
                 },
               },
             },
           }}
-          // type="line"
-          // series={[
-          //   {
-          //     name: "Price",
-          //     data: data?.map((price) => price.close) ?? [],
-          //   },
-          // ]}
-          // options={{
-          //   theme: {
-          //     mode: "dark",
-          //   },
-          //   chart: {
-          //     height: 300,
-          //     width: 500,
-          //     toolbar: {
-          //       show: false,
-          //     },
-          //     background: "transparent",
-          //   },
-          //   grid: { show: false },
-          //   stroke: {
-          //     curve: "smooth",
-          //     width: 4,
-          //   },
-          //   yaxis: {
-          //     show: false,
-          //   },
-          //   xaxis: {
-          //     axisBorder: { show: false },
-          //     axisTicks: { show: false },
-          //     labels: {
-          //       show: false,
-          //     },
-          //     type: "datetime",
-          //     categories: data?.map((price) => new Date(price.time_close * 1000).toISOString()),
-          //   },
-          //   fill: {
-          //     type: "gradient",
-          //     gradient: { gradientToColors: ["#0be881"], stops: [0, 100] },
-          //   },
-          //   colors: ["#0fbcf9"],
-          //   tooltip: {
-          //     y: {
-          //       formatter: (value) => `$${value.toFixed(2)}`,
-          //     },
-          //   },
-          // }}
         />
       )}
     </div>
