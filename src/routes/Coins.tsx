@@ -175,11 +175,11 @@ function Coins() {
       )}
       <Header>
         <Title>Nomad Coins</Title>
-        <img className="nomadCoinsLogo" src="/assets/coin-favicon64.png" alt="logo" />
+        <img className="nomadCoinsLogo" src={process.env.PUBLIC_URL + "/assets/coin-favicon64.png"} alt="logo" />
       </Header>
       {isLoading ? (
         <Loader>
-          <img src="/assets/clock.gif" alt="Loading clock" />
+          <img src={process.env.PUBLIC_URL + "/assets/clock.gif"} alt="Loading clock" />
         </Loader>
       ) : (
         <>

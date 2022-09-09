@@ -231,7 +231,7 @@ function Coin() {
       </Header>
       {loading ? (
         <Loader>
-          <img src="/assets/clock.gif" alt="Loading clock" />
+          <img src={process.env.PUBLIC_URL + "/assets/clock.gif"} alt="Loading clock" />
         </Loader>
       ) : (
         <>
