@@ -1,5 +1,5 @@
 {
-  "name": "crypto-tracker",
+  "name": "coin101",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -62,5 +62,5 @@
     "@types/react-router-dom": "^5.3.3",
     "@types/styled-components": "^5.1.26"
   },
-  "homepage": "https://rigood.github.io/crypto-tracker"
+  "homepage": "https://rigood.github.io/coin101"
 }

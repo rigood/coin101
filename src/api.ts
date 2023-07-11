@@ -1,19 +1,32 @@
 const BASE_URL = `https://api.coinpaprika.com/v1`;
 
-export function fetchCoins() {
-  return fetch(`${BASE_URL}/coins`).then((response) => response.json());
+export async function getCoins() {
+  return await fetch(`${BASE_URL}/coins`).then((res) => res.json());
 }
 
-export function fetchCoinInfo(coinId: string) {
-  return fetch(`${BASE_URL}/coins/${coinId}`).then((response) => response.json());
+export async function getCoin(coinId: string) {
+  return await fetch(`${BASE_URL}/coins/${coinId}`).then((res) => res.json());
 }
 
-export function fetchCoinTickers(coinId: string) {
-  return fetch(`${BASE_URL}/tickers/${coinId}`).then((response) => response.json());
+export async function getCoinPrice(coinId: string) {
+  return await fetch(`${BASE_URL}/tickers/${coinId}`).then((res) => res.json());
 }
 
-export function fetchCoinHistory(coinId: string) {
+export async function getCoinHistory(coinId: string) {
   const endDate = Math.floor(Date.now() / 1000);
-  const startDate = endDate - 60 * 60 * 24 * 7 * 2;
-  return fetch(`https://ohlcv-api.nomadcoders.workers.dev?coinId=${coinId}&start=${startDate}&end=${endDate}`).then((response) => response.json());
+
+  const MILLISECONDS_FOR_TWO_WEEKS = 60 * 60 * 24 * 7 * 2;
+  const startDate = endDate - MILLISECONDS_FOR_TWO_WEEKS;
+
+  return await fetch(
+    `https://ohlcv-api.nomadcoders.workers.dev?coinId=${coinId}&start=${startDate}&end=${endDate}`
+  ).then(async (res) => {
+    const rawData = await res.json();
+
+    if ("error" in rawData) {
+      throw new Error("no data");
+    } else {
+      return rawData;
+    }
+  });
 }

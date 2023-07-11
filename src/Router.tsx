@@ -1,6 +1,6 @@
 import { HashRouter, Route, Routes } from "react-router-dom";
-import Coin from "./routes/Coin";
-import Coins from "./routes/Coins";
+import Coin from "./pages/Coin";
+import Coins from "./pages/Coins";
 
 function Router() {
   return (

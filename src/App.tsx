@@ -1,33 +1,11 @@
-import { ThemeProvider } from "styled-components";
-import { createGlobalStyle } from "styled-components";
-import reset from "styled-reset";
-
-import Router from "./Router";
 import { useRecoilValue } from "recoil";
-import { HelmetProvider } from "react-helmet-async";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-
+import { HelmetProvider } from "react-helmet-async";
+import { ThemeProvider } from "styled-components";
 import { isDarkAtom } from "./atoms";
 import { darkTheme, lightTheme } from "./theme";
-
-const GlobalStyle = createGlobalStyle`
-${reset};
-*{
-  box-sizing: border-box;
-}
-body{
-  background-color:${(props) => props.theme.bgColor};
-  color:${(props) => props.theme.textColor};
-  font-family: 'Montserrat', sans-serif;
-}
-button{
-  border: none;
-}
-a{
-  color: inherit;
-  text-decoration: none;
-}
-`;
+import { GlobalStyle } from "./GlobalStyle";
+import Router from "./Router";
 
 function App() {
   const isDark = useRecoilValue(isDarkAtom);
