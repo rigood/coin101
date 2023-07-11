@@ -1,6 +1,6 @@
 # 💰 Coin101
 
-- [DEMO 바로가기](rigood.github.io/coin101)
+- [DEMO 바로가기](https://rigood.github.io/coin101/)
 
 ## 1. 프로젝트 소개
 
