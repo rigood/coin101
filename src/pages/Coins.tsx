@@ -4,13 +4,13 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { getCoins } from "../api";
-import Layout from "../components/layout/Layout";
-import MoveToTopBtn from "../components/buttons/MoveToTopBtn";
-import Loader from "../components/loader/Loader";
 import { CoinData } from "../interface";
-import Coin101Logo from "../assets/logo.png";
-import CoinLogo from "../assets/coin.png";
+import Layout from "../components/layout/Layout";
+import Loader from "../components/loader/Loader";
 import CardSlide from "../components/CardSlide/CardSlide";
+import CoinLogo from "../assets/coin.png";
+import MoveToTopBtn from "../components/buttons/MoveToTopBtn";
+import DarkModeBtn from "../components/buttons/DarkModeBtn";
 
 function Coins() {
   const { isLoading, data } = useQuery<CoinData[]>(["allCoins"], getCoins);
@@ -18,14 +18,13 @@ function Coins() {
   return (
     <Layout title="Coin 101">
       {isLoading ? (
-        <LoaderWrapper>
-          <Loader />
-        </LoaderWrapper>
+        <Loader />
       ) : (
         <>
           <Header>
             <Logo src={CoinLogo} alt="코인" />
             <Title>Coin 101</Title>
+            <DarkModeBtn width={40} fontSize={20} />
           </Header>
           <CardSlide />
           <CoinList>
@@ -57,15 +56,13 @@ export default Coins;
 
 const Header = styled.header`
   display: flex;
+  justify-content: space-between;
   align-items: flex-end;
   margin: 48px 0 24px;
-`;
 
-export const LoaderWrapper = styled.div`
-  min-height: 80vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @media screen and (max-width: 480px) {
+    margin-top: 24px;
+  }
 `;
 
 const Logo = styled.img`
@@ -74,26 +71,15 @@ const Logo = styled.img`
 `;
 
 const Title = styled.h1`
+  flex: 1;
   font-size: 40px;
   font-weight: 700;
   color: ${({ theme }) => theme.accentColor};
 `;
 
-// const Logo = styled.img`
-//   width: 200px;
-//   margin-bottom: 24px;
-//   user-select: none;
-// `;
-
-// const Title = styled.h1`
-//   font-family: "OTWelcomeRA";
-//   color: ${(props) => props.theme.themeColor};
-//   text-align: center;
-//   line-height: 1.2;
-// `;
-
 const CoinList = styled.ul`
   width: 100%;
+  margin-bottom: 24px;
 `;
 
 const CoinCard = styled.li`

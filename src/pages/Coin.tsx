@@ -14,7 +14,7 @@ import MoveBackBtn from "../components/buttons/MoveBackBtn";
 import Chart from "../components/Chart/Chart";
 import NoChart from "../components/Chart/NoChart";
 import Price from "../components/Price/Price";
-import { LoaderWrapper } from "./Coins";
+import DarkModeBtn from "../components/buttons/DarkModeBtn";
 
 interface LocationState {
   state: {
@@ -49,14 +49,13 @@ function Coin() {
   return (
     <Layout title={state?.name}>
       {isLoading ? (
-        <LoaderWrapper>
-          <Loader />
-        </LoaderWrapper>
+        <Loader />
       ) : priceData ? (
         <>
           <Header>
             <MoveBackBtn />
             <Title>{priceData.symbol}</Title>
+            <DarkModeBtn width={24} fontSize={12} />
           </Header>
           <Info>
             <Img src={getImg(priceData.symbol)} />
@@ -109,11 +108,17 @@ export default Coin;
 
 const Header = styled.header`
   display: flex;
+  justify-content: space-between;
   align-items: flex-end;
   margin: 48px 0;
+
+  @media screen and (max-width: 480px) {
+    margin-top: 24px;
+  }
 `;
 
 const Title = styled.div`
+  flex: 1;
   margin-left: 10px;
   font-size: 24px;
 `;

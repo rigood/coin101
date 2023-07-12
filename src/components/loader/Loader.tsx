@@ -12,10 +12,10 @@ const Loader = () => {
 export default Loader;
 
 const Wrapper = styled.div`
+  min-height: 80vh;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  gap: 20px;
 `;
 
 const Img = styled.img`

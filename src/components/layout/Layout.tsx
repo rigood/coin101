@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { Helmet } from "react-helmet-async";
-import DarkModeBtn from "../buttons/DarkModeBtn";
 
 interface LayoutProps {
   title: string;
@@ -14,7 +13,6 @@ const Layout = ({ title, children }: LayoutProps) => {
         <title>{title}</title>
       </Helmet>
       {children}
-      <DarkModeBtn />
     </Container>
   );
 };
