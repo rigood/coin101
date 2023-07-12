@@ -1,6 +1,4 @@
 import styled, { keyframes } from "styled-components";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faYoutube } from "@fortawesome/free-brands-svg-icons";
 import YoutubeCard from "./YoutubeCard";
 import AdCard from "./AdCard";
 

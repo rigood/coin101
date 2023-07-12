@@ -1,7 +1,7 @@
 import { useRecoilValue } from "recoil";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { HelmetProvider } from "react-helmet-async";
 import { ThemeProvider } from "styled-components";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { isDarkAtom } from "./atoms";
 import { darkTheme, lightTheme } from "./theme";
 import { GlobalStyle } from "./GlobalStyle";
