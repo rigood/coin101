@@ -1,11 +1,11 @@
 {
   "files": {
-    "main.js": "/coin101/static/js/main.151f9105.js",
+    "main.js": "/coin101/static/js/main.f3a3f4c0.js",
     "static/media/clock.gif": "/coin101/static/media/clock.8b05e8f0c18cc30dbf7d.gif",
     "index.html": "/coin101/index.html",
-    "main.151f9105.js.map": "/coin101/static/js/main.151f9105.js.map"
+    "main.f3a3f4c0.js.map": "/coin101/static/js/main.f3a3f4c0.js.map"
   },
   "entrypoints": [
-    "static/js/main.151f9105.js"
+    "static/js/main.f3a3f4c0.js"
   ]
 }
