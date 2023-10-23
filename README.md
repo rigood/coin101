@@ -88,7 +88,7 @@
    ├─ 📜 App.tsx
    └─ 📜 index.tsx
    └─ 📜 Router.tsx
-   └─ 📜 api.ts // react-query에서 사용할 data 모음
+   └─ 📜 api.ts // react-query에서 사용할 queryFn 모음
    └─ 📜 atoms.ts // recoil 상태값 모음
    └─ 📜 utils.ts
 ```
