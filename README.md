@@ -40,7 +40,7 @@
 
 - URL에서 coinID를 추출하여, **API 요청**을 통해 코인 상세정보를 가져옵니다.
 - 최초에는 **로딩 이미지**가 표시되며, 그 이후에는 **데이터가 캐싱**됩니다.
-- **react-query의 select 옵션**을 사용하여 최근 2주간의 가격 정보를 선택하고, **apexcharts**를 이용하여 **Candlestick**을 구현하였습니다.
+- **apexcharts**를 이용하여 최근 2주간의 가격 흐름을 **Candlestick**로 나타냈습니다.
 - Candlestick 정보가 없는 경우, **에러 문구를 표시**하였습니다.
 - Price 탭에서는 상세 가격정보를 확인할 수 있으며, 상승/하락 여부에 따라 색상을 적용하였습니다.
 - **react-tooltip**을 사용하여, 용어 설명을 나타내었습니다.
@@ -88,7 +88,34 @@
    ├─ 📜 App.tsx
    └─ 📜 index.tsx
    └─ 📜 Router.tsx
-   └─ 📜 api.ts // react-query에서 사용할 queryFn 모음
+   └─ 📜 api.ts // react-query에서 사용할 data 모음
    └─ 📜 atoms.ts // recoil 상태값 모음
    └─ 📜 utils.ts
 ```
+
+<br>
+
+## 5. 업데이트 기록
+
+### 2023.07.11 업데이트 내역
+
+#### 리팩토링
+
+- 컴포넌트 분리
+- 폴더 구조 정리
+- 삼항연산자를 사용하여 조건문 축약
+- react-query의 select 옵션을 사용하여 응답받은 63,100개 코인 목록 중 101개 코인만 추출  
+  (기존: 컴포넌트를 렌더링 할 때 slice 메서드를 이용하여 101개 추출)
+
+#### 기능 추가
+
+- 코인 상세페이지 진입 시 차트 바로 보여주기 (기존: 차트 탭 클릭 시 차트 표시)
+- Candlestick x축에 날짜 레이블 표시
+- Candlestick에 최근 2주간의 가격 자료만 표시
+- useQuery의 select를 통해 응답 받은 데이터 가공(최근 2주일 자료만 필터링)
+- 다크모드 전환 시 트랜지션 적용
+
+#### 버그 수정
+
+- [react-query의 refetchInterval 옵션 삭제 (API 한도량 초과 방지)](https://github.com/rigood/coin101/issues/1)
+- [차트 정보가 존재하지 않는 코인에 대한 API 에러 핸들링](https://github.com/rigood/coin101/issues/2)

@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
-import { getCoins } from "../api";
+import { getCoinList } from "../api";
 import { CoinData } from "../types/interface";
 import Layout from "../components/Layout/Layout";
 import Loader from "../components/Loader/Loader";
@@ -13,7 +13,11 @@ import MoveToTopBtn from "../components/Buttons/MoveToTopBtn";
 import DarkModeBtn from "../components/Buttons/DarkModeBtn";
 
 function Coins() {
-  const { isLoading, data } = useQuery<CoinData[]>(["allCoins"], getCoins);
+  const { isLoading, data } = useQuery<CoinData[]>({
+    queryKey: ["allCoins"],
+    queryFn: getCoinList,
+    select: (data) => data.slice(0, 101),
+  });
 
   return (
     <Layout title="Coin 101">
@@ -28,7 +32,7 @@ function Coins() {
           </Header>
           <CardSlide />
           <CoinList>
-            {data?.slice(0, 101).map((coin) => (
+            {data?.map((coin) => (
               <CoinCard key={coin.id}>
                 <CoinLink to={`${coin.id}`} state={{ name: coin.name }}>
                   <Rank>{coin.rank}</Rank>

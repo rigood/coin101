@@ -5,7 +5,7 @@ import styled from "styled-components";
 import ReactTooltip from "react-tooltip";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
-import { getCoinHistory, getCoinPrice } from "../api";
+import { getCoinPriceData, getCoinChartData } from "../api";
 import { ChartData, PriceData } from "../types/interface";
 import { getImg } from "../utils";
 import Layout from "../components/Layout/Layout";
@@ -30,7 +30,7 @@ function Coin() {
 
   const { isLoading: priceLoading, data: priceData } = useQuery<PriceData>(
     ["tickers", coinId],
-    () => getCoinPrice(coinId!)
+    () => getCoinPriceData(coinId!)
   );
 
   const {
@@ -39,7 +39,7 @@ function Coin() {
     data: chartData,
   } = useQuery<ChartData[]>({
     queryKey: ["chart", coinId],
-    queryFn: () => getCoinHistory(coinId!),
+    queryFn: () => getCoinChartData(coinId!),
     select: (data) => data.filter((_, index) => index > 5 && index < 20),
     retry: 1,
   });
