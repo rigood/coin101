@@ -3,8 +3,8 @@ import { HelmetProvider } from "react-helmet-async";
 import { ThemeProvider } from "styled-components";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { isDarkAtom } from "./atoms";
-import { darkTheme, lightTheme } from "./theme";
-import { GlobalStyle } from "./GlobalStyle";
+import { darkTheme, lightTheme } from "./styles/theme";
+import { GlobalStyle } from "./styles/GlobalStyle";
 import Router from "./Router";
 
 function App() {

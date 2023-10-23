@@ -4,10 +4,6 @@ export async function getCoins() {
   return await fetch(`${BASE_URL}/coins`).then((res) => res.json());
 }
 
-export async function getCoin(coinId: string) {
-  return await fetch(`${BASE_URL}/coins/${coinId}`).then((res) => res.json());
-}
-
 export async function getCoinPrice(coinId: string) {
   return await fetch(`${BASE_URL}/tickers/${coinId}`).then((res) => res.json());
 }
@@ -20,13 +16,5 @@ export async function getCoinHistory(coinId: string) {
 
   return await fetch(
     `https://ohlcv-api.nomadcoders.workers.dev?coinId=${coinId}&start=${startDate}&end=${endDate}`
-  ).then(async (res) => {
-    const rawData = await res.json();
-
-    if ("error" in rawData) {
-      throw new Error("no data");
-    } else {
-      return rawData;
-    }
-  });
+  ).then((res) => res.json());
 }

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Clock from "../../assets/clock.gif";
+import Clock from "../../assets/images/clock.gif";
 
 const Loader = () => {
   return (

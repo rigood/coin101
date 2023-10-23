@@ -6,15 +6,15 @@ import ReactTooltip from "react-tooltip";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 import { getCoinHistory, getCoinPrice } from "../api";
-import { ChartData, PriceData } from "../interface";
+import { ChartData, PriceData } from "../types/interface";
 import { getImg } from "../utils";
-import Layout from "../components/layout/Layout";
-import Loader from "../components/loader/Loader";
-import MoveBackBtn from "../components/buttons/MoveBackBtn";
+import Layout from "../components/Layout/Layout";
+import Loader from "../components/Loader/Loader";
+import MoveBackBtn from "../components/Buttons/MoveBackBtn";
 import Chart from "../components/Chart/Chart";
 import NoChart from "../components/Chart/NoChart";
 import Price from "../components/Price/Price";
-import DarkModeBtn from "../components/buttons/DarkModeBtn";
+import DarkModeBtn from "../components/Buttons/DarkModeBtn";
 
 interface LocationState {
   state: {

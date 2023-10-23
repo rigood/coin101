@@ -4,13 +4,13 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { getCoins } from "../api";
-import { CoinData } from "../interface";
-import Layout from "../components/layout/Layout";
-import Loader from "../components/loader/Loader";
+import { CoinData } from "../types/interface";
+import Layout from "../components/Layout/Layout";
+import Loader from "../components/Loader/Loader";
 import CardSlide from "../components/CardSlide/CardSlide";
-import CoinLogo from "../assets/coin.png";
-import MoveToTopBtn from "../components/buttons/MoveToTopBtn";
-import DarkModeBtn from "../components/buttons/DarkModeBtn";
+import CoinLogo from "../assets/images/coin.png";
+import MoveToTopBtn from "../components/Buttons/MoveToTopBtn";
+import DarkModeBtn from "../components/Buttons/DarkModeBtn";
 
 function Coins() {
   const { isLoading, data } = useQuery<CoinData[]>(["allCoins"], getCoins);

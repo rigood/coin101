@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { PriceData } from "../../interface";
+import { PriceData } from "../../types/interface";
 import PercentItem from "./PercentItem";
 import PriceItem from "./PriceItem";
 

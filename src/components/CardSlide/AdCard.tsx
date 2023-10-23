@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Coin101Logo from "../../assets/logo.png";
+import Coin101Logo from "../../assets/images/logo.png";
 
 const AdCard = () => {
   return (

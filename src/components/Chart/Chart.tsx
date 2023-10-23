@@ -2,7 +2,7 @@ import ApexCharts from "react-apexcharts";
 import styled from "styled-components";
 import { useRecoilValue } from "recoil";
 import { isDarkAtom } from "../../atoms";
-import { ChartData } from "../../interface";
+import { ChartData } from "../../types/interface";
 
 interface ChartProps {
   data: ChartData[];
